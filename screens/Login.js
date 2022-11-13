@@ -1,11 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 const Login = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("doo@gmail.com");
+  const [password, setPassword] = useState("mrdoo");
 
   const handleLoginRequest = async () => {
     try {
@@ -17,7 +18,7 @@ const Login = ({ navigation }) => {
         console.log("Username or password empty");
       }
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   };
 
@@ -43,8 +44,11 @@ const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   header: {
     fontSize: 28,
-    marginTop: 100,
-    marginLeft: 15,
+    marginTop: 65,
+    marginHorizontal: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#333",
+    borderStyle: "solid",
   },
 
   inputGroup: {

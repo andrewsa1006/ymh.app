@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { View, ImageBackground, StyleSheet, Pressable, Text } from "react-native";
 
-export default Home = ({ navigation }) => {
+export default Auth = ({ navigation }) => {
   return (
     <View>
       <ImageBackground style={styles.backgroundImage} source={require("../assets/background.png")} resizeMode="stretch"></ImageBackground>

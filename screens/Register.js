@@ -1,5 +1,3 @@
-// TODO: Handle validation overall with useReducer
-
 import { StatusBar } from "expo-status-bar";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useState } from "react";
@@ -53,8 +51,11 @@ const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   header: {
     fontSize: 28,
-    marginTop: 100,
-    marginLeft: 15,
+    marginTop: 65,
+    marginHorizontal: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#333",
+    borderStyle: "solid",
   },
 
   inputGroup: {
