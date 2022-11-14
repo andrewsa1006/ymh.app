@@ -9,17 +9,17 @@ const Login = ({ navigation }) => {
   const [password, setPassword] = useState("mrdoo");
 
   const handleLoginRequest = async () => {
-    try {
-      if (email.length > 0 && password.length > 0) {
-        const res = await axios.post("http://192.168.1.104:3000/auth/login", { email, password });
-        navigation.navigate("News");
-        console.log(res.data);
-      } else {
-        console.log("Username or password empty");
-      }
-    } catch (error) {
-      throw error;
-    }
+    // try {
+    // if (email.length > 0 && password.length > 0) {
+    //   const res = await axios.post("http://192.168.1.104:3000/auth/login", { email, password });
+    navigation.navigate("News");
+    //   console.log(res.data);
+    // } else {
+    //   console.log("Username or password empty");
+    // }
+    // } catch (error) {
+    //   throw error;
+    // }
   };
 
   return (

@@ -10,4 +10,18 @@ TODO: Store token and user on registration in redux and locally
 TODO: Add spinner with slight delay when registering in so success message can be displayed.
 
 App:
-TODO: Create a seprate navigation stack once logged in so the back button does not log them out once they are there
+TODO: Current TabBarNavigator moves with keyboard. Explore Keyboard avoiding view to ensure this does not happen
+
+News: 
+TODO: Refactor each news items to be its own component
+TODO: Add page where its possible to read the news article
+
+Tickets:
+TODO: Pull ticketing information from the datbase. 
+TODO: Make ticket component and render all tickets as components.
+TODO: Connect fake ticketing API and make separate ticket page that lists more information and integrates maps
+
+Shop:
+TODO: Pull shop information from the datbase. 
+TODO: Make item component and render all items as components.
+TODO: Add separate page that shows more item details and appears to allow someone to check out

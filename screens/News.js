@@ -1,27 +1,47 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable, Image, FlatList } from "react-native";
-import axios from "axios";
+
+const posts = [
+  {
+    id: 1,
+    title: "YMH #677 Out Now!",
+    post_date: "2022-11-11 11:45:04",
+    description: "Watch as Tom and Christina explore new depths of degeneracy, only on YMH!",
+    thumbnail_url: "https://ymh-content.s3.amazonaws.com/news-screenshots/ymh.PNG",
+    redirect_url: "",
+    category: "podcast",
+  },
+  {
+    id: 1,
+    title: "New Shows Alert",
+    post_date: "2022-11-12 11:45:04",
+    description: "Tom just added a ton of new dates to his 'I'm coming everywhere' tour. Be sure to check them out!",
+    thumbnail_url: "https://ymh-content.s3.amazonaws.com/news-screenshots/tom_segura.jpg",
+    redirect_url: "",
+    category: "tickets",
+  },
+  {
+    id: 1,
+    title: "Heaviest of the heavy",
+    post_date: "2022-11-13 11:45:04",
+    description: "Get your barf bags ready, Tim and Kathleen have a whole new gaggle of clips for you.",
+    thumbnail_url: "https://ymh-content.s3.amazonaws.com/news-screenshots/ymh_live.PNG",
+    redirect_url: "",
+    category: "live",
+  },
+  {
+    id: 1,
+    title: "Perfect Red? We think so.",
+    post_date: "2022-11-14 11:45:04",
+    description: "Be sure to place your order for Christina P's new shade of lipstick, while supplies last.",
+    thumbnail_url: "https://ymh-content.s3.amazonaws.com/news-screenshots/ymh_lipstick.PNG",
+    redirect_url: "",
+    category: "product",
+  },
+];
 
 const News = ({ navigation }) => {
-  const [posts, setPosts] = useState([]);
-  const fetchNewsPosts = async () => {
-    let res = await axios.get("http://192.168.1.104:3000/news");
-    setPosts(res.data);
-  };
-
-  // Grab posts from db
-  useEffect(() => {
-    let subscribed = true;
-    if (subscribed) {
-      fetchNewsPosts();
-    }
-
-    return () => {
-      subscribed = false;
-    };
-  });
-
   return (
     <View>
       <View style={styles.mainView}>
