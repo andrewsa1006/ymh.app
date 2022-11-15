@@ -11,6 +11,7 @@ import Podcasts from "./Podcasts";
 import { useSelector } from "react-redux";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default Main = () => {
   const Stack = createNativeStackNavigator();
@@ -89,13 +90,84 @@ export default Main = () => {
             tabBarInactiveTintColor: "gray",
           })}
         >
-          <TabNav.Screen name="Shop" component={Shop} />
-          <TabNav.Screen name="Tickets" component={Tickets} />
+          <TabNav.Screen
+            options={{
+              headerRight: (props) => (
+                <Pressable
+                  onPress={() => {
+                    console.log("test");
+                  }}
+                >
+                  <Ionicons style={styles.headerRight} color="black" size={20} name="funnel" />
+                </Pressable>
+              ),
+            }}
+            name="Shop"
+            component={Shop}
+          />
+          <TabNav.Screen
+            options={{
+              headerRight: (props) => (
+                <Pressable
+                  onPress={() => {
+                    console.log("test");
+                  }}
+                >
+                  <Ionicons style={styles.headerRight} color="black" size={20} name="funnel" />
+                </Pressable>
+              ),
+            }}
+            name="Tickets"
+            component={Tickets}
+          />
           <TabNav.Screen name="News" component={News} />
-          <TabNav.Screen name="Podcasts" component={Podcasts} />
-          <TabNav.Screen name="Settings" component={Settings} />
+          <TabNav.Screen
+            options={{
+              headerRight: (props) => (
+                <Pressable
+                  onPress={() => {
+                    console.log("test");
+                  }}
+                >
+                  <Ionicons style={styles.headerRight} color="black" size={20} name="funnel" />
+                </Pressable>
+              ),
+            }}
+            name="Podcasts"
+            component={Podcasts}
+          />
+          <TabNav.Screen
+            options={{
+              headerRight: (props) => (
+                <Pressable
+                  onPress={() => {
+                    console.log("test");
+                  }}
+                >
+                  <View style={styles.logout}>
+                    <Text>Logout</Text>
+                    <Ionicons style={styles.headerRight} color="black" size={20} name="exit" />
+                  </View>
+                </Pressable>
+              ),
+            }}
+            name="Settings"
+            component={Settings}
+          />
         </TabNav.Navigator>
       )}
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  headerRight: {
+    marginRight: 20,
+    marginLeft: 5,
+  },
+
+  logout: {
+    display: "flex",
+    flexDirection: "row",
+  },
+});

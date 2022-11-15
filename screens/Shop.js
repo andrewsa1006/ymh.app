@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { View, Text, ActivityIndicator, StyleSheet, Dimensions, TextInput, FlatList } from "react-native";
+import { useEffect, useState } from "react";
+import { View, Text, ActivityIndicator, StyleSheet, Dimensions, TextInput, FlatList, Image, Button, Pressable } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const products = [
@@ -9,7 +9,7 @@ const products = [
     itemDescription: "",
     itemPrice: "$30.00",
     inStock: "true",
-    image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/perfect_red.PNG",
+    image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/perfect_red1.PNG",
   },
 
   {
@@ -18,7 +18,7 @@ const products = [
     itemDescription: "",
     itemPrice: "$33.00",
     inStock: "true",
-    image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/fat_sticks.PNG",
+    image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/fat_sticks1.PNG",
   },
 
   {
@@ -27,7 +27,7 @@ const products = [
     itemDescription: "",
     itemPrice: "$33.00",
     inStock: "false",
-    image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/where_are_the_bodies_garth.PNG",
+    image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/where_are_the_bodies_garth1.PNG",
   },
 
   {
@@ -36,7 +36,7 @@ const products = [
     itemDescription: "",
     itemPrice: "$37.00",
     inStock: "true",
-    image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/two_bears_one_cave_tyedye.PNG",
+    image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/two_bears_one_cave_tyedye1.PNG",
   },
 
   {
@@ -45,12 +45,18 @@ const products = [
     itemDescription: "",
     itemPrice: "$15.00",
     inStock: "false",
-    image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/problems_koozie.PNG",
+    image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/problems_koozie1.PNG",
   },
 ];
 
 const Shop = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  });
   return (
     <View>
       {loading ? (
@@ -59,10 +65,38 @@ const Shop = () => {
         <View>
           <View style={styles.searchBarContainer}>
             <Ionicons name="search" />
-            <TextInput style={styles.searchIcon} placeholder="Searching for something?"></TextInput>
+            <TextInput style={styles.searchBar} placeholder="Searching for something?" />
+            <Pressable style={[styles.viewCart, styles.blackBackground]}>
+              <Text style={styles.whiteText}>VIEW CART</Text>
+            </Pressable>
           </View>
 
-          <FlatList data={products} renderItem={({ item, index }) => <View key={item.id} style={styles.showBody}></View>} />
+          <FlatList
+            data={products}
+            renderItem={({ item }) => (
+              <View key={item.id} style={styles.itemBody}>
+                <Text style={styles.itemName}>{item.itemName}</Text>
+                <View style={styles.middleContainer}>
+                  <Image style={styles.image} source={{ uri: item.image_uri }} />
+
+                  <View style={styles.buttonContainer}>
+                    <Pressable style={[styles.button, styles.blackBackground]}>
+                      <Text style={styles.whiteText}>ADD TO CART</Text>
+                    </Pressable>
+
+                    <Pressable style={styles.button}>
+                      <Text style={styles.blackText}>SAVE FOR LATER</Text>
+                    </Pressable>
+
+                    <Pressable style={[styles.button, styles.blackBackground]}>
+                      <Text style={styles.whiteText}>VIEW DETAILS</Text>
+                    </Pressable>
+                  </View>
+                </View>
+                <Text style={styles.itemPrice}>{item.itemPrice}</Text>
+              </View>
+            )}
+          />
         </View>
       )}
     </View>
@@ -72,67 +106,106 @@ const Shop = () => {
 export default Shop;
 
 const styles = StyleSheet.create({
-  searchBarContainer: {
-    display: "flex",
-    flexDirection: "row",
-    marginHorizontal: 15,
-    alignItems: "center",
-    height: 50,
-  },
-
-  searchIcon: {
-    marginHorizontal: 5,
-  },
-
-  showBody: {
-    backgroundColor: "#D3D3D3",
-    width: "95%",
-    height: 100,
-    alignSelf: "center",
-    marginVertical: 5,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-
-  leftText: {
-    margin: 10,
-  },
-
-  rightText: {
-    margin: 10,
-  },
-
-  locationText: {
-    fontSize: 16,
-  },
-
-  countryText: {
-    fontSize: 10,
-    marginBottom: 12,
-  },
-
-  venueText: {
-    fontSize: 18,
-  },
-
-  seatsRemaining: {
-    fontSize: 10,
-  },
-
-  dateText: {
-    fontSize: 12,
-  },
-
-  timeText: {
-    fontSize: 10,
-    marginBottom: 15,
-  },
-
   loading: {
     margin: 0,
     position: "absolute",
     top: Dimensions.get("screen").height / 2 - 100,
     left: Dimensions.get("screen").width / 2 - 15,
+  },
+
+  searchBarContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomColor: "#3D3D3D",
+    borderStyle: "solid",
+    borderBottomWidth: 1,
+    marginBottom: 10,
+    width: Dimensions.get("screen").width * 0.95,
+    alignSelf: "center",
+  },
+
+  searchBar: {
+    width: "50%",
+    marginHorizontal: 10,
+  },
+
+  itemBody: {
+    backgroundColor: "#FFF",
+    width: Dimensions.get("screen").width * 0.95,
+    height: Dimensions.get("screen").height * 0.35,
+    alignSelf: "center",
+    marginVertical: 5,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    borderStyle: "solid",
+    borderBottomWidth: 1,
+    borderBottomColor: "black",
+  },
+
+  itemName: {
+    fontSize: 20,
+  },
+
+  middleContainer: {
+    display: "flex",
+    flexDirection: "row",
+  },
+
+  image: {
+    width: Dimensions.get("screen").width * 0.6,
+    height: Dimensions.get("screen").height * 0.25,
+    marginVertical: 10,
+  },
+
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "column",
+    width: "40%",
+    justifyContent: "space-between",
+  },
+
+  button: {
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "black",
+    borderStyle: "solid",
+    borderRadius: 5,
+    marginVertical: 15,
+    marginHorizontal: 5,
+  },
+
+  viewCart: {
+    padding: 5,
+    borderWidth: 1,
+    borderColor: "black",
+    borderStyle: "solid",
+    borderRadius: 5,
+    marginVertical: 5,
+    marginHorizontal: 10,
+  },
+
+  blackBackground: {
+    backgroundColor: "black",
+    color: "white",
+  },
+
+  blackText: {
+    color: "black",
+    textAlign: "center",
+  },
+
+  whiteText: {
+    color: "white",
+    textAlign: "center",
+  },
+
+  itemPrice: {
+    fontSize: 15,
+    padding: 5,
   },
 });

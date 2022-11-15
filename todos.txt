@@ -11,6 +11,7 @@ TODO: Add spinner with slight delay when registering in so success message can b
 
 App:
 TODO: Current TabBarNavigator moves with keyboard. Explore Keyboard avoiding view to ensure this does not happen
+TODO: Redo folder structure to create subfolders in components and screens, so like items are grouped together. This is just a readability change.
 
 News: 
 TODO: Refactor each news items to be its own component
@@ -19,9 +20,16 @@ TODO: Add page where its possible to read the news article
 Tickets:
 TODO: Pull ticketing information from the datbase. 
 TODO: Make ticket component and render all tickets as components.
-TODO: Connect fake ticketing API and make separate ticket page that lists more information and integrates maps
+TODO: Connect fake ticketing API
+TODO: Make ticket page that gives more information about a given show and provides a maps
 
 Shop:
 TODO: Pull shop information from the datbase. 
 TODO: Make item component and render all items as components.
-TODO: Add separate page that shows more item details and appears to allow someone to check out
+TODO: Add separate page that shows more item details
+TODO: Add separate page for cart
+TODO: Add separate page for checout
+TODO: Add a view cart button to the right of the search bar
+
+Settings:
+TODO: Logout route should clear redux and local storage and send user back to main page.

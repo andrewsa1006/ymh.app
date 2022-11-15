@@ -15,14 +15,7 @@ const Login = ({ navigation }) => {
 
   // REGISTRATION
   const handleRegistration = async () => {
-    // try {
-    //   const res = await axios.post("http://192.168.1.104:3000/auth/register", { email, username, password });
-    //   dispatch(updateUserInformation({ email, username }));
     navigation.navigate("News");
-    //   console.log(res.data);
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
 
   return (

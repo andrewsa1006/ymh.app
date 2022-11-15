@@ -13,7 +13,7 @@ const posts = [
     category: "podcast",
   },
   {
-    id: 1,
+    id: 2,
     title: "New Shows Alert",
     post_date: "2022-11-12 11:45:04",
     description: "Tom just added a ton of new dates to his 'I'm coming everywhere' tour. Be sure to check them out!",
@@ -22,7 +22,7 @@ const posts = [
     category: "tickets",
   },
   {
-    id: 1,
+    id: 3,
     title: "Heaviest of the heavy",
     post_date: "2022-11-13 11:45:04",
     description: "Get your barf bags ready, Tim and Kathleen have a whole new gaggle of clips for you.",
@@ -31,7 +31,7 @@ const posts = [
     category: "live",
   },
   {
-    id: 1,
+    id: 4,
     title: "Perfect Red? We think so.",
     post_date: "2022-11-14 11:45:04",
     description: "Be sure to place your order for Christina P's new shade of lipstick, while supplies last.",

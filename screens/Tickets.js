@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet, Button, FlatList, ActivityIndicator, Dimensions } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
 import { useEffect, useState } from "react";
 
 const showData = [
@@ -121,30 +120,18 @@ const Tickets = () => {
         <ActivityIndicator style={styles.loading} size="large" color="#333" />
       ) : (
         <View>
-          <View style={styles.dropdownContainer}>
-            <Text>Shows for: </Text>
-            <DropDownPicker
-              style={styles.dropdown}
-              open={open}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-            />
-          </View>
-
           <FlatList
             data={showData}
             renderItem={({ item, index }) => (
               <View key={item.id} style={styles.showBody}>
                 <View style={styles.leftText}>
+                  <Text style={styles.comedian}>Tom Segura</Text>
                   <Text style={styles.locationText}>
                     {item.city}, {item.state}
                   </Text>
                   <Text style={styles.countryText}>{item.country}</Text>
                   <Text style={styles.venueText}>{item.venue.substring(0, 20)}...</Text>
-                  {item.tickets_remaining ? <Text>{item.num_tickets_remaining} tickets remaining.</Text> : null}
+                  {item.tickets_remaining ? <Text style={styles.seatsRemaining}>{item.num_tickets_remaining} seats remaining.</Text> : null}
                 </View>
                 <View style={styles.rightText}>
                   <Text style={styles.dateText}>{item.date}</Text>
@@ -168,19 +155,6 @@ const Tickets = () => {
 export default Tickets;
 
 const styles = StyleSheet.create({
-  dropdownContainer: {
-    display: "flex",
-    flexDirection: "row",
-    marginHorizontal: 15,
-    justifyContent: "space-between",
-    alignItems: "center",
-    height: 50,
-  },
-
-  dropdown: {
-    width: "70%",
-  },
-
   showBody: {
     backgroundColor: "#D3D3D3",
     width: "95%",
@@ -202,6 +176,15 @@ const styles = StyleSheet.create({
 
   locationText: {
     fontSize: 16,
+  },
+
+  comedian: {
+    marginTop: -10,
+    fontSize: 10,
+    color: "white",
+    backgroundColor: "black",
+    borderRadius: 3,
+    paddingHorizontal: 5,
   },
 
   countryText: {
