@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get("screen").width * 0.95,
     textAlign: "center",
     borderRadius: 10,
-    padding: 5,
+    padding: 15,
     margin: 10,
     display: "flex",
     flexDirection: "row",

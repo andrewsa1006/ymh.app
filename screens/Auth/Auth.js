@@ -4,7 +4,7 @@ import { View, ImageBackground, StyleSheet, Pressable, Text } from "react-native
 export default Auth = ({ navigation }) => {
   return (
     <View>
-      <ImageBackground style={styles.backgroundImage} source={require("../assets/background.png")} resizeMode="stretch"></ImageBackground>
+      <ImageBackground style={styles.backgroundImage} source={require("../../assets/background.png")} resizeMode="stretch"></ImageBackground>
       <View style={styles.authOptions}>
         <Pressable
           onPress={() => {

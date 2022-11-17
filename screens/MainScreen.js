@@ -1,22 +1,28 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Login from "./Login";
-import Register from "./Register";
+import Login from "./Auth/Login";
+import Register from "./Auth/Register";
 import News from "./News";
-import Auth from "./Auth";
+import Auth from "./Auth/Auth";
 import Settings from "./Settings";
-import Tickets from "./Tickets";
-import Shop from "./Shop";
-import Podcasts from "./Podcasts";
-import { useSelector } from "react-redux";
+import Tickets from "./Tickets/Tickets";
+import Shop from "./Shop/Shop";
+import Podcasts from "./Podcasts/Podcasts";
+import { useSelector, useDispatch } from "react-redux";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { logout } from "../state/slices/userSlice";
 
 export default Main = () => {
+  const dispatch = useDispatch();
   const Stack = createNativeStackNavigator();
   const TabNav = createBottomTabNavigator();
   const isUserSignedIn = useSelector((user) => user.user.user.username);
+
+  const logUserOut = () => {
+    dispatch(logout());
+  };
 
   return (
     <NavigationContainer>
@@ -139,11 +145,7 @@ export default Main = () => {
           <TabNav.Screen
             options={{
               headerRight: (props) => (
-                <Pressable
-                  onPress={() => {
-                    console.log("test");
-                  }}
-                >
+                <Pressable onPress={logUserOut}>
                   <View style={styles.logout}>
                     <Text>Logout</Text>
                     <Ionicons style={styles.headerRight} color="black" size={20} name="exit" />

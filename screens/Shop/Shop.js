@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator, StyleSheet, Dimensions, TextInput, FlatList, Image, Button, Pressable } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Cart from "./Cart";
+import { addItemToList } from "../../state/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 const products = [
   {
@@ -10,6 +13,7 @@ const products = [
     itemPrice: "$30.00",
     inStock: "true",
     image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/perfect_red1.PNG",
+    quantity: 1,
   },
 
   {
@@ -19,6 +23,7 @@ const products = [
     itemPrice: "$33.00",
     inStock: "true",
     image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/fat_sticks1.PNG",
+    quantity: 1,
   },
 
   {
@@ -28,6 +33,7 @@ const products = [
     itemPrice: "$33.00",
     inStock: "false",
     image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/where_are_the_bodies_garth1.PNG",
+    quantity: 1,
   },
 
   {
@@ -37,6 +43,7 @@ const products = [
     itemPrice: "$37.00",
     inStock: "true",
     image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/two_bears_one_cave_tyedye1.PNG",
+    quantity: 1,
   },
 
   {
@@ -46,57 +53,76 @@ const products = [
     itemPrice: "$15.00",
     inStock: "false",
     image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/problems_koozie1.PNG",
+    quantity: 1,
   },
 ];
 
-const Shop = () => {
+const Shop = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const [showCartModal, setShowCartModal] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 1000);
   });
+
+  const toggleCartModal = () => {
+    setShowCartModal((prevState) => !prevState);
+  };
+
   return (
     <View>
       {loading ? (
         <ActivityIndicator style={styles.loading} size="large" color="#333" />
       ) : (
         <View>
-          <View style={styles.searchBarContainer}>
-            <Ionicons name="search" />
-            <TextInput style={styles.searchBar} placeholder="Searching for something?" />
-            <Pressable style={[styles.viewCart, styles.blackBackground]}>
-              <Text style={styles.whiteText}>VIEW CART</Text>
-            </Pressable>
-          </View>
-
-          <FlatList
-            data={products}
-            renderItem={({ item }) => (
-              <View key={item.id} style={styles.itemBody}>
-                <Text style={styles.itemName}>{item.itemName}</Text>
-                <View style={styles.middleContainer}>
-                  <Image style={styles.image} source={{ uri: item.image_uri }} />
-
-                  <View style={styles.buttonContainer}>
-                    <Pressable style={[styles.button, styles.blackBackground]}>
-                      <Text style={styles.whiteText}>ADD TO CART</Text>
-                    </Pressable>
-
-                    <Pressable style={styles.button}>
-                      <Text style={styles.blackText}>SAVE FOR LATER</Text>
-                    </Pressable>
-
-                    <Pressable style={[styles.button, styles.blackBackground]}>
-                      <Text style={styles.whiteText}>VIEW DETAILS</Text>
-                    </Pressable>
-                  </View>
-                </View>
-                <Text style={styles.itemPrice}>{item.itemPrice}</Text>
+          {showCartModal ? (
+            <Cart toggleCartModal={toggleCartModal} />
+          ) : (
+            <View>
+              <View style={styles.searchBarContainer}>
+                <Ionicons name="search" />
+                <TextInput style={styles.searchBar} placeholder="Searching for something?" />
+                <Pressable onPress={toggleCartModal} style={[styles.viewCart, styles.blackBackground]}>
+                  <Text style={styles.whiteText}>VIEW CART</Text>
+                </Pressable>
               </View>
-            )}
-          />
+
+              <FlatList
+                data={products}
+                renderItem={({ item }) => (
+                  <View key={item.id} style={styles.itemBody}>
+                    <Text style={styles.itemName}>{item.itemName}</Text>
+                    <View style={styles.middleContainer}>
+                      <Image style={styles.image} source={{ uri: item.image_uri }} />
+
+                      <View style={styles.buttonContainer}>
+                        <Pressable
+                          onPress={() => {
+                            dispatch(addItemToList({ item, list: "cart" }));
+                          }}
+                          style={[styles.button, styles.blackBackground]}
+                        >
+                          <Text style={styles.whiteText}>ADD TO CART</Text>
+                        </Pressable>
+
+                        <Pressable style={styles.button}>
+                          <Text style={styles.blackText}>SAVE FOR LATER</Text>
+                        </Pressable>
+
+                        <Pressable style={[styles.button, styles.blackBackground]}>
+                          <Text style={styles.whiteText}>VIEW DETAILS</Text>
+                        </Pressable>
+                      </View>
+                    </View>
+                    <Text style={styles.itemPrice}>{item.itemPrice}</Text>
+                  </View>
+                )}
+              />
+            </View>
+          )}
         </View>
       )}
     </View>

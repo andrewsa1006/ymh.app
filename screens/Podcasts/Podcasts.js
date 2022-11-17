@@ -1,6 +1,6 @@
 import React from "react";
-import { View, FlatList, StyleSheet, Text } from "react-native";
-import Podcast from "../components/Podcast";
+import { View, FlatList, StyleSheet } from "react-native";
+import Podcast from "../../components/Podcast";
 
 const videos = [
   { id: "N0jKZbWDslM" },

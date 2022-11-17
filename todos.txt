@@ -33,3 +33,6 @@ TODO: Add a view cart button to the right of the search bar
 
 Settings:
 TODO: Logout route should clear redux and local storage and send user back to main page.
+
+State:
+TODO: Separate all forms of state into their various slices
