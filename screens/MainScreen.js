@@ -5,7 +5,7 @@ import Register from "./Auth/Register";
 import News from "./News";
 import Auth from "./Auth/Auth";
 import Settings from "./Settings";
-import Tickets from "./Tickets/Tickets";
+import Shows from "./Shows/Shows";
 import Shop from "./Shop/Shop";
 import Podcasts from "./Podcasts/Podcasts";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,6 +19,7 @@ export default Main = () => {
   const Stack = createNativeStackNavigator();
   const TabNav = createBottomTabNavigator();
   const isUserSignedIn = useSelector((user) => user.user.user.username);
+  const show = useSelector((user) => user.user.viewShowInfo);
 
   const logUserOut = () => {
     dispatch(logout());
@@ -77,7 +78,7 @@ export default Main = () => {
                   iconName = focused ? "newspaper" : "newspaper-outline";
                   break;
 
-                case "Tickets":
+                case "Shows":
                   iconName = focused ? "pricetag" : "pricetag-outline";
                   break;
 
@@ -92,7 +93,7 @@ export default Main = () => {
               // You can return any component that you like here!
               return <Ionicons name={iconName} size={size} color={color} />;
             },
-            tabBarActiveTintColor: "tomato",
+            tabBarActiveTintColor: "red",
             tabBarInactiveTintColor: "gray",
           })}
         >
@@ -116,15 +117,15 @@ export default Main = () => {
               headerRight: (props) => (
                 <Pressable
                   onPress={() => {
-                    console.log("test");
+                    console.log(show);
                   }}
                 >
                   <Ionicons style={styles.headerRight} color="black" size={20} name="funnel" />
                 </Pressable>
               ),
             }}
-            name="Tickets"
-            component={Tickets}
+            name="Shows"
+            component={Shows}
           />
           <TabNav.Screen name="News" component={News} />
           <TabNav.Screen

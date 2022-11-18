@@ -15,7 +15,7 @@ const CartItem = (props) => {
     >
       <Text style={styles.itemTitle}>{itemName}</Text>
       <Image style={styles.itemThumbnail} source={{ uri: image_uri }} />
-      <Text style={styles.itemPrice}>{itemPrice}</Text>
+      <Text style={styles.itemPrice}>${itemPrice}.00</Text>
       <Text style={styles.itemQuantity}>Quantity: {quantity}</Text>
       <View style={styles.removeFromCartButtonContainer}>
         <Button

@@ -2,13 +2,21 @@ import { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator, StyleSheet, Dimensions, TextInput, FlatList, Image, Pressable, Modal, Button } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import CartItem from "../../components/shop/CartItem";
+import CartItem from "../../components/Shop/CartItem";
 
 const products = [];
 
 const Cart = (props) => {
   const [loading, setLoading] = useState(true);
   const cartState = useSelector((user) => user.user.cart);
+
+  const displayTotal = () => {
+    let total = 0;
+    cartState.forEach((item) => {
+      total += item.itemPrice * item.quantity;
+    });
+    return total;
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -37,6 +45,7 @@ const Cart = (props) => {
                   return <CartItem key={item.id} item={item} />;
                 })}
               </View>
+              <Text style={styles.total}>Total: ${displayTotal()}.00</Text>
             </View>
           ) : (
             <View style={styles.emptyCart}>
@@ -89,5 +98,10 @@ const styles = StyleSheet.create({
     top: 10,
     left: 10,
     width: Dimensions.get("screen").width * 0.3,
+  },
+
+  total: {
+    textAlign: "right",
+    fontSize: 20,
   },
 });

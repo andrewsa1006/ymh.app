@@ -1,5 +1,7 @@
-import { View, Text, StyleSheet, Button, FlatList, ActivityIndicator, Dimensions } from "react-native";
+import { View, Text, StyleSheet, FlatList, ActivityIndicator, Dimensions } from "react-native";
 import { useEffect, useState } from "react";
+import Show from "../../components/Shows/Show";
+import ViewShowModal from "./ViewShowModal";
 
 const showData = [
   {
@@ -12,6 +14,12 @@ const showData = [
     venue: "Barbara B. Mann Performing Arts Hall",
     tickets_remaining: false,
     num_tickets_remaining: 0,
+    coordinates: {
+      latitude: 26.5546539666996,
+      longitude: -81.88694642175722,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    },
   },
 
   {
@@ -22,8 +30,14 @@ const showData = [
     date: "November 22, 2022",
     time: "7:00PM",
     venue: "Barbara B. Mann Performing Arts Hall",
-    tickets_remaining: false,
-    num_tickets_remaining: 0,
+    tickets_remaining: true,
+    num_tickets_remaining: 2,
+    coordinates: {
+      latitude: 26.5546539666996,
+      longitude: -81.88694642175722,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    },
   },
 
   {
@@ -36,6 +50,12 @@ const showData = [
     venue: "Youkey Theatre at The RP Funding Center",
     tickets_remaining: false,
     num_tickets_remaining: 0,
+    coordinates: {
+      latitude: 26.5546539666996,
+      longitude: -81.88694642175722,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    },
   },
 
   {
@@ -48,6 +68,12 @@ const showData = [
     venue: "Maxwell C. King Center for the Performing Arts",
     tickets_remaining: false,
     num_tickets_remaining: 0,
+    coordinates: {
+      latitude: 26.5546539666996,
+      longitude: -81.88694642175722,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    },
   },
 
   {
@@ -60,6 +86,12 @@ const showData = [
     venue: "Maxwell C. King Center for the Performing Arts",
     tickets_remaining: true,
     num_tickets_remaining: 18,
+    coordinates: {
+      latitude: 28.17082423137966,
+      longitude: -80.66941173041211,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    },
   },
 
   {
@@ -72,6 +104,12 @@ const showData = [
     venue: "Seminole Hard Rock Hotel & Casino",
     tickets_remaining: false,
     num_tickets_remaining: 0,
+    coordinates: {
+      latitude: 26.5546539666996,
+      longitude: -81.88694642175722,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    },
   },
 
   {
@@ -84,6 +122,12 @@ const showData = [
     venue: "Seminole Hard Rock Hotel & Casino",
     tickets_remaining: false,
     num_tickets_remaining: 0,
+    coordinates: {
+      latitude: 26.5546539666996,
+      longitude: -81.88694642175722,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    },
   },
 
   {
@@ -96,22 +140,27 @@ const showData = [
     venue: "Seminole Hard Rock Hotel & Casino",
     tickets_remaining: false,
     num_tickets_remaining: 0,
+    coordinates: {
+      latitude: 26.5546539666996,
+      longitude: -81.88694642175722,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    },
   },
 ];
 
-const Tickets = () => {
+const Shows = () => {
   const [loading, setLoading] = useState(true);
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("tomsegura");
-  const [items, setItems] = useState([
-    { label: "Tom Segura", value: "tomsegura" },
-    { label: "Christina P", value: "christinap" },
-  ]);
+  const [viewShowModal, setViewShowModal] = useState(false);
+
+  const toggleViewShowModal = () => {
+    setViewShowModal((prevState) => !prevState);
+  };
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 900);
+    }, 500);
   }, []);
 
   return (
@@ -120,95 +169,20 @@ const Tickets = () => {
         <ActivityIndicator style={styles.loading} size="large" color="#333" />
       ) : (
         <View>
-          <FlatList
-            data={showData}
-            renderItem={({ item, index }) => (
-              <View key={item.id} style={styles.showBody}>
-                <View style={styles.leftText}>
-                  <Text style={styles.comedian}>Tom Segura</Text>
-                  <Text style={styles.locationText}>
-                    {item.city}, {item.state}
-                  </Text>
-                  <Text style={styles.countryText}>{item.country}</Text>
-                  <Text style={styles.venueText}>{item.venue.substring(0, 20)}...</Text>
-                  {item.tickets_remaining ? <Text style={styles.seatsRemaining}>{item.num_tickets_remaining} seats remaining.</Text> : null}
-                </View>
-                <View style={styles.rightText}>
-                  <Text style={styles.dateText}>{item.date}</Text>
-                  <Text style={styles.timeText}>{item.time}</Text>
-                  <Button
-                    color={item.tickets_remaining ? "black" : "grey"}
-                    style={styles.button}
-                    title={item.tickets_remaining ? "BUY TICKETS" : "SOLD OUT"}
-                    disabled={item.tickets_remaining ? false : true}
-                  />
-                </View>
-              </View>
-            )}
-          />
+          {viewShowModal ? (
+            <ViewShowModal toggleViewShowModal={toggleViewShowModal} />
+          ) : (
+            <FlatList data={showData} renderItem={({ item }) => <Show item={item} toggleViewShowModal={toggleViewShowModal} />} />
+          )}
         </View>
       )}
     </View>
   );
 };
 
-export default Tickets;
+export default Shows;
 
 const styles = StyleSheet.create({
-  showBody: {
-    backgroundColor: "#D3D3D3",
-    width: "95%",
-    height: 100,
-    alignSelf: "center",
-    marginVertical: 5,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-
-  leftText: {
-    margin: 10,
-  },
-
-  rightText: {
-    margin: 10,
-  },
-
-  locationText: {
-    fontSize: 16,
-  },
-
-  comedian: {
-    marginTop: -10,
-    fontSize: 10,
-    color: "white",
-    backgroundColor: "black",
-    borderRadius: 3,
-    paddingHorizontal: 5,
-  },
-
-  countryText: {
-    fontSize: 10,
-    marginBottom: 12,
-  },
-
-  venueText: {
-    fontSize: 18,
-  },
-
-  seatsRemaining: {
-    fontSize: 10,
-  },
-
-  dateText: {
-    fontSize: 12,
-  },
-
-  timeText: {
-    fontSize: 10,
-    marginBottom: 15,
-  },
-
   loading: {
     margin: 0,
     position: "absolute",

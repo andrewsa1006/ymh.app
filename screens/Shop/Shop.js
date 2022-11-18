@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator, StyleSheet, Dimensions, TextInput, FlatList, Image, Button, Pressable } from "react-native";
+import { View, Text, ActivityIndicator, StyleSheet, Dimensions, TextInput, FlatList, Image, Alert, Pressable } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Cart from "./Cart";
 import { addItemToList } from "../../state/slices/userSlice";
@@ -10,7 +10,7 @@ const products = [
     id: 1,
     itemName: "Christina P's Perfect Red Lipstick",
     itemDescription: "",
-    itemPrice: "$30.00",
+    itemPrice: 30,
     inStock: "true",
     image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/perfect_red1.PNG",
     quantity: 1,
@@ -20,7 +20,7 @@ const products = [
     id: 2,
     itemName: "Fat Sticks T-Shirt",
     itemDescription: "",
-    itemPrice: "$33.00",
+    itemPrice: 33,
     inStock: "true",
     image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/fat_sticks1.PNG",
     quantity: 1,
@@ -30,7 +30,7 @@ const products = [
     id: 3,
     itemName: "Where are the bodies G? T-Shirt",
     itemDescription: "",
-    itemPrice: "$33.00",
+    itemPrice: 33,
     inStock: "false",
     image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/where_are_the_bodies_garth1.PNG",
     quantity: 1,
@@ -40,7 +40,7 @@ const products = [
     id: 4,
     itemName: "Two Bears One Cave Tie-Dye",
     itemDescription: "",
-    itemPrice: "$37.00",
+    itemPrice: 37,
     inStock: "true",
     image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/two_bears_one_cave_tyedye1.PNG",
     quantity: 1,
@@ -50,7 +50,7 @@ const products = [
     id: 5,
     itemName: "Problems Koozie",
     itemDescription: "",
-    itemPrice: "$15.00",
+    itemPrice: 15,
     inStock: "false",
     image_uri: "https://ymh-content.s3.amazonaws.com/shop-screenshots/problems_koozie1.PNG",
     quantity: 1,
@@ -71,6 +71,9 @@ const Shop = ({ navigation }) => {
   const toggleCartModal = () => {
     setShowCartModal((prevState) => !prevState);
   };
+
+  const addItemToListAlert = (title, list) =>
+    Alert.alert(`Added to ${list}:`, `${title}`, [{ text: "OK", onPress: () => console.log("OK Pressed") }]);
 
   return (
     <View>
@@ -101,6 +104,7 @@ const Shop = ({ navigation }) => {
                       <View style={styles.buttonContainer}>
                         <Pressable
                           onPress={() => {
+                            addItemToListAlert(item.itemName, "cart");
                             dispatch(addItemToList({ item, list: "cart" }));
                           }}
                           style={[styles.button, styles.blackBackground]}
@@ -108,7 +112,13 @@ const Shop = ({ navigation }) => {
                           <Text style={styles.whiteText}>ADD TO CART</Text>
                         </Pressable>
 
-                        <Pressable style={styles.button}>
+                        <Pressable
+                          onPress={() => {
+                            addItemToListAlert(item.itemName, "Watch List");
+                            dispatch(addItemToList({ item, list: "saveForLater" }));
+                          }}
+                          style={styles.button}
+                        >
                           <Text style={styles.blackText}>SAVE FOR LATER</Text>
                         </Pressable>
 
@@ -117,7 +127,7 @@ const Shop = ({ navigation }) => {
                         </Pressable>
                       </View>
                     </View>
-                    <Text style={styles.itemPrice}>{item.itemPrice}</Text>
+                    <Text style={styles.itemPrice}>${item.itemPrice}.00</Text>
                   </View>
                 )}
               />
@@ -212,7 +222,7 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderRadius: 5,
     marginVertical: 5,
-    marginHorizontal: 10,
+    marginLeft: 10,
   },
 
   blackBackground: {
