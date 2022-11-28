@@ -130,6 +130,10 @@ const styles = StyleSheet.create({
   venue: {
     fontSize: 18,
     marginLeft: 5,
+    backgroundColor: "black",
+    color: "white",
+    textAlign: "center",
+    borderRadius: 3,
   },
 
   location: {
@@ -155,9 +159,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 5,
     marginTop: 15,
+    backgroundColor: "black",
+    color: "white",
+    width: "45%",
+    textAlign: "center",
+    borderRadius: 3,
   },
 
   comedians: {
     marginLeft: 5,
+    backgroundColor: "white",
+    color: "black",
+    width: "45%",
+    textAlign: "center",
+    borderRadius: 3,
   },
 });

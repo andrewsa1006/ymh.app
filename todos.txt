@@ -19,20 +19,15 @@ TODO: Add page where its possible to read the news article
 
 Tickets:
 TODO: Pull ticketing information from the datbase. 
-TODO: Make ticket component and render all tickets as components.
 TODO: Connect fake ticketing API
-TODO: Make ticket page that gives more information about a given show and provides a maps
 
 Shop:
 TODO: Pull shop information from the datbase. 
 TODO: Make item component and render all items as components.
 TODO: Add separate page that shows more item details
-TODO: Add separate page for cart
 TODO: Add separate page for checout
-TODO: Add a view cart button to the right of the search bar
 
 Settings:
-TODO: Logout route should clear redux and local storage and send user back to main page.
 
 State:
 TODO: Separate all forms of state into their various slices

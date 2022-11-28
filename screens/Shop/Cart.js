@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator, StyleSheet, Dimensions, TextInput, FlatList, Image, Pressable, Modal, Button } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import CartItem from "../../components/Shop/CartItem";
-
-const products = [];
 
 const Cart = (props) => {
   const [loading, setLoading] = useState(true);
@@ -101,7 +98,12 @@ const styles = StyleSheet.create({
   },
 
   total: {
-    textAlign: "right",
+    alignSelf: "center",
     fontSize: 20,
+    backgroundColor: "black",
+    color: "white",
+    textAlign: "center",
+    borderRadius: 3,
+    width: "90%",
   },
 });

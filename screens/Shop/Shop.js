@@ -5,6 +5,8 @@ import Cart from "./Cart";
 import { addItemToList } from "../../state/slices/userSlice";
 import { useDispatch } from "react-redux";
 
+// Moving items back here instead of using the RDS instance. These would likely come from the whatever service YMH is using currently, so no need to doubly store data.
+
 const products = [
   {
     id: 1,
@@ -64,6 +66,7 @@ const Shop = ({ navigation }) => {
 
   useEffect(() => {
     setTimeout(() => {
+      // Simulate fetching from server
       setLoading(false);
     }, 1000);
   });
@@ -89,7 +92,10 @@ const Shop = ({ navigation }) => {
                 <Ionicons name="search" />
                 <TextInput style={styles.searchBar} placeholder="Searching for something?" />
                 <Pressable onPress={toggleCartModal} style={[styles.viewCart, styles.blackBackground]}>
-                  <Text style={styles.whiteText}>VIEW CART</Text>
+                  <Ionicons name="eye" color="white" size={25} />
+                </Pressable>
+                <Pressable onPress={toggleCartModal} style={[styles.viewCart, styles.blackBackground]}>
+                  <Ionicons name="cart" color="white" size={25} />
                 </Pressable>
               </View>
 
@@ -158,12 +164,12 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderBottomWidth: 1,
     marginBottom: 10,
-    width: Dimensions.get("screen").width * 0.95,
+    width: Dimensions.get("screen").width,
     alignSelf: "center",
   },
 
   searchBar: {
-    width: "50%",
+    width: "60%",
     marginHorizontal: 10,
   },
 
@@ -216,12 +222,14 @@ const styles = StyleSheet.create({
   },
 
   viewCart: {
+    display: "flex",
+    flexDirection: "row",
     padding: 5,
     borderWidth: 1,
     borderColor: "black",
     borderStyle: "solid",
     borderRadius: 5,
-    marginVertical: 5,
+    marginVertical: 2,
     marginLeft: 10,
   },
 

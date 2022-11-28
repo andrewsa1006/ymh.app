@@ -65,10 +65,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderRadius: 10,
     padding: 5,
+    borderBottomColor: "black",
+    borderStyle: "solid",
+    borderBottomWidth: 1,
   },
 
   menuItem: {
-    backgroundColor: "#DDD",
+    backgroundColor: "#CCC",
     width: Dimensions.get("screen").width * 0.95,
     textAlign: "center",
     borderRadius: 10,
@@ -78,6 +81,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignContent: "center",
     alignItems: "center",
+    borderBottomColor: "black",
+    borderStyle: "solid",
+    borderBottomWidth: 1,
   },
 
   menuItemText: {

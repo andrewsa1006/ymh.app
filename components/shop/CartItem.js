@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { View, Text, StyleSheet, Dimensions, Image, Pressable, Button } from "react-native";
 import { decreaseItemQuantity, increaseItemQuantity, removeItemFromList } from "../../state/slices/userSlice";
 import { useDispatch } from "react-redux";
@@ -17,16 +16,6 @@ const CartItem = (props) => {
       <Image style={styles.itemThumbnail} source={{ uri: image_uri }} />
       <Text style={styles.itemPrice}>${itemPrice}.00</Text>
       <Text style={styles.itemQuantity}>Quantity: {quantity}</Text>
-      <View style={styles.removeFromCartButtonContainer}>
-        <Button
-          onPress={() => {
-            dispatch(removeItemFromList({ item: props.item, list: "cart" }));
-          }}
-          color="red"
-          title="Remove"
-        />
-      </View>
-
       <View style={styles.increaseQuantity}>
         <Button
           onPress={() => {
@@ -40,7 +29,7 @@ const CartItem = (props) => {
       <View style={styles.decreaseQuantity}>
         <Button
           onPress={() => {
-            dispatch(decreaseItemQuantity({ item: props.item }));
+            quantity === 1 ? dispatch(removeItemFromList({ item: props.item, list: "cart" })) : dispatch(decreaseItemQuantity({ item: props.item }));
           }}
           color="black"
           title="-"
@@ -92,24 +81,17 @@ const styles = StyleSheet.create({
     right: 5,
   },
 
-  removeFromCartButtonContainer: {
-    position: "absolute",
-    width: 80,
-    bottom: 5,
-    right: 5,
-  },
-
   increaseQuantity: {
     position: "absolute",
     width: 50,
     bottom: 5,
-    right: 90,
+    right: 5,
   },
 
   decreaseQuantity: {
     position: "absolute",
     width: 50,
     bottom: 5,
-    right: 145,
+    right: 60,
   },
 });
