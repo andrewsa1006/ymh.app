@@ -16,10 +16,10 @@ const Show = (props) => {
       <View style={styles.leftText}>
         <Text style={styles.comedian}>Tom Segura</Text>
         <Text style={styles.locationText}>
-          {item.city}, {item.state}
+          {item.venue.city}, {item.venue.state}
         </Text>
-        <Text style={styles.countryText}>{item.country}</Text>
-        <Text style={styles.venueText}>{item.venue.substring(0, 20)}...</Text>
+        <Text style={styles.countryText}>{item.venue.country}</Text>
+        <Text style={styles.venueText}>{item.name.substring(0, 20)}...</Text>
         {item.tickets_remaining ? <Text style={styles.seatsRemaining}>{item.num_tickets_remaining} seats remaining.</Text> : null}
       </View>
       <View style={styles.rightText}>

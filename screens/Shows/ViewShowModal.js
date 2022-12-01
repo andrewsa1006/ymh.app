@@ -26,11 +26,11 @@ const ViewShowModal = (props) => {
       </View>
 
       <View style={styles.showInfoBox}>
-        <Text style={styles.venue}>{show.venue}</Text>
+        <Text style={styles.venue}>{show.name}</Text>
         <Text style={styles.location}>
-          {show.city}, {show.state}
+          {show.venue.city}, {show.venue.state}
         </Text>
-        <Text style={styles.location}>{show.country}</Text>
+        <Text style={styles.location}>{show.venue.country}</Text>
         <Text style={styles.performingComedians}>Performing Comedians:</Text>
         <Text style={styles.comedians}>Tom Segura</Text>
         <Text style={styles.date}>{show.date}</Text>
@@ -52,8 +52,19 @@ const ViewShowModal = (props) => {
           </Text>
         </Pressable>
       )}
-      <MapView style={fullScreenMap ? styles.mapFullScreen : styles.map} initialRegion={show.coordinates}>
-        <Marker title={show.venue} coordinate={{ latitude: show.coordinates.latitude, longitude: show.coordinates.longitude }} />
+      <MapView
+        style={fullScreenMap ? styles.mapFullScreen : styles.map}
+        initialRegion={{
+          latitude: parseFloat(show.venue.coordinates.latitude),
+          longitude: parseFloat(show.venue.coordinates.longitude),
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <Marker
+          title={show.name}
+          coordinate={{ latitude: parseFloat(show.venue.coordinates.latitude), longitude: parseFloat(show.venue.coordinates.longitude) }}
+        />
       </MapView>
     </View>
   );
