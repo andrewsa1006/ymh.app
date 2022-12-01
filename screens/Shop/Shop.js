@@ -5,7 +5,7 @@ import Cart from "./Cart";
 import { addItemToList } from "../../state/slices/userSlice";
 import { useDispatch } from "react-redux";
 
-// Moving items back here instead of using the RDS instance. These would likely come from the whatever service YMH is using currently, so no need to doubly store data.
+// Items need to stay here as I will not get access to shopify collaborator API from YMH.
 
 const products = [
   {
@@ -68,7 +68,7 @@ const Shop = ({ navigation }) => {
     setTimeout(() => {
       // Simulate fetching from server
       setLoading(false);
-    }, 1000);
+    }, 10000);
   });
 
   const toggleCartModal = () => {

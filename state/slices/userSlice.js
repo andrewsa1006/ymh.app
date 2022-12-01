@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const userSlice = createSlice({
   name: "user",
@@ -15,6 +16,7 @@ export const userSlice = createSlice({
     updateUserInformation: (state, action) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
+      AsyncStorage.setItem("user", JSON.stringify({ user: action.payload.user, token: action.payload.token }));
     },
 
     addItemToList: (state, action) => {

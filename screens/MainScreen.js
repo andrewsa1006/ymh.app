@@ -12,7 +12,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { logout } from "../state/slices/userSlice";
+import { logout, updateUserInformation } from "../state/slices/userSlice";
+import { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default Main = () => {
   const dispatch = useDispatch();
@@ -21,9 +23,23 @@ export default Main = () => {
   const isUserSignedIn = useSelector((user) => user.user.user.username);
   const show = useSelector((user) => user.user.viewShowInfo);
 
-  const logUserOut = () => {
+  const logUserOut = async () => {
+    await AsyncStorage.removeItem("user");
     dispatch(logout());
   };
+
+  const checkForLocalUserOnStartup = async () => {
+    let user = await AsyncStorage.getItem("user");
+    let JSONUser = await JSON.parse(user);
+    console.log(JSONUser);
+    if (JSONUser) {
+      dispatch(updateUserInformation({ user: { username: JSONUser.user.username, email: JSONUser.user.email }, token: JSONUser.token }));
+    }
+  };
+
+  useEffect(() => {
+    checkForLocalUserOnStartup();
+  }, []);
 
   return (
     <NavigationContainer>
@@ -172,5 +188,12 @@ const styles = StyleSheet.create({
   logout: {
     display: "flex",
     flexDirection: "row",
+  },
+
+  loading: {
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignContent: "center",
   },
 });
