@@ -3,20 +3,32 @@ import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateUserInformation } from "../../state/slices/userSlice";
+import axios from "axios";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const token = "this_is_a_token";
 
   const dispatch = useDispatch();
 
   // REGISTRATION
   const handleRegistration = async () => {
-    dispatch(updateUserInformation({ user: { username, email }, token }));
-    navigation.navigate("News");
+    try {
+      let response = await axios.post("https://v6n6cm02tj.execute-api.us-east-1.amazonaws.com/dev/auth/register", {
+        username: username,
+        email: email,
+        password: password,
+      });
+      console.log(response.data);
+      dispatch(
+        updateUserInformation({ user: { username: response.data.user.username, email: response.data.user.email }, token: response.data.token })
+      );
+      navigation.navigate("News");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

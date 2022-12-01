@@ -1,14 +1,20 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { View, Text, TextInput, StyleSheet, Pressable, Image, FlatList, Alert, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, Image, FlatList, ActivityIndicator } from "react-native";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const News = ({ navigation }) => {
+  const token = useSelector((user) => user.user.token);
   const [posts, setPosts] = useState([]);
 
   const fetchNewsPosts = async () => {
     try {
-      const response = await axios.get("https://v6n6cm02tj.execute-api.us-east-1.amazonaws.com/dev/news");
+      const response = await axios.get("https://v6n6cm02tj.execute-api.us-east-1.amazonaws.com/dev/news", {
+        headers: {
+          authorizationToken: token,
+        },
+      });
       setPosts(response.data);
     } catch (error) {
       // Eventually handle errors here

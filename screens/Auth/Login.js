@@ -3,18 +3,24 @@ import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateUserInformation } from "../../state/slices/userSlice";
+import axios from "axios";
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const username = "four_strokes_champion";
-  const token = "this_is_a_token";
-  const [email, setEmail] = useState("four_strokes@gmail.com");
-  const [password, setPassword] = useState("12345678");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLoginRequest = async () => {
-    dispatch(updateUserInformation({ user: { username, email }, token }));
-    navigation.navigate("News");
+    try {
+      let response = await axios.post("https://v6n6cm02tj.execute-api.us-east-1.amazonaws.com/dev/auth/login", { email: email, password: password });
+      dispatch(
+        updateUserInformation({ user: { username: response.data.user.username, email: response.data.user.email }, token: response.data.token })
+      );
+      navigation.navigate("News");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
